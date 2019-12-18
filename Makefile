@@ -1,4 +1,4 @@
-.SUFFIXES: .pdf .tex
+.SUFFIXES: .pdf .tex .m .matlab
 
 OBJDIR = build
 FIGDIR = ${OBJDIR}/fig
@@ -9,11 +9,26 @@ LATEXMK = ${LMKVARS} latexmk ${LMKOPTS}
 
 report: doc/report.pdf
 
+img: imgs.zip
+	unzip -d imgtmp imgs.zip
+	tar -xvf imgtmp/DIIP-images-bias.tar
+	tar -xvf imgtmp/DIIP-images-dark.tar
+	tar -xvf imgtmp/DIIP-images-flat.tar
+	tar -xvf imgtmp/DIIP-images-measurements-1.tar
+	tar -xvf imgtmp/DIIP-images-measurements-2.tar
+	rm -r imgtmp
+	mkdir -p img
+	mv DIIP-images/* img
+	rmdir DIIP-images/
+
 .tex.pdf:
 	${LATEXMK} $<
+
+.m.matlab:
+	matlab -nodisplay -nosplash -nodesktop -r "run('$<');exit;"
 
 clean:
 	for ft in ${AUX}; do rm -rf $$(find . -name "*$$ft"); done
 
 distclean:
-	rm -rf ${OBJDIR}
+	rm -rf ${OBJDIR} img
