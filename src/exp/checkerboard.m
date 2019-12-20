@@ -1,5 +1,5 @@
 addpath('../io');
-addpath('../calib');
+addpath('../preprocess');
 
 %Is = imreads('../../img/Teams6-7');
 
