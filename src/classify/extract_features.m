@@ -7,6 +7,7 @@ function F = extract_features(c, r, I_hsv, k)
     w = size(I_hsv, 2);
 
     hues = zeros(0, 1);
+    sats = zeros(0, 1);
     sats_inner = zeros(0, 1);
     sats_outer = zeros(0, 1);
     for y = 1:h
@@ -14,6 +15,7 @@ function F = extract_features(c, r, I_hsv, k)
             d2 = (x-c(1))^2 + (y-c(2))^2;
             if d2 <= r^2
                 hues(end+1) = I_hsv(y, x, 1);
+                sats(end+1) = I_hsv(y, x, 2);
                 if d2 <= (0.75*r)^2
                     sats_inner(end+1) = I_hsv(y, x, 2);
                 else
@@ -24,7 +26,7 @@ function F = extract_features(c, r, I_hsv, k)
     end
 
     diameter = 2*k*r;
-    hue = mean(hues);
+    hue = sum((hues .* sats)) / sum(sats); % hue weigthed by sat
     sat_diff = mean(sats_inner) - mean(sats_outer);
 
     F = [diameter hue sat_diff];
