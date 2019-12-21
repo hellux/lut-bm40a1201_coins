@@ -1,4 +1,4 @@
-function coin = classify_coin(features, mfs)
+function [coin, membership] = classify_coin(features, mfs)
     coin_count = size(mfs, 1);
     feature_count = size(mfs, 2);
     memberships = zeros(1, coin_count);
@@ -10,5 +10,8 @@ function coin = classify_coin(features, mfs)
         end
         memberships(i) = min(ms);
     end
-    [~, coin] = max(memberships);
+    [membership, coin] = max(memberships);
+    if membership < 0.05
+        coin = 0;
+    end
 end

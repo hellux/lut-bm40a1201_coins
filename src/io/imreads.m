@@ -1,4 +1,4 @@
-function imgs = imreads(dirpath)
+function [imgs, fnames] = imreads(dirpath)
     paths = dir(strcat(dirpath, '/*'));
 
     files = struct(paths(1));
@@ -8,7 +8,7 @@ function imgs = imreads(dirpath)
             files(end+1) = paths(i);
         end
     end
+    fnames = arrayfun(@(f) strcat(f.folder, "/", f.name), files);
 
-    f = @(x) imread(strcat(x.folder, "/", x.name));
-    imgs = arrayfun(f, files, 'UniformOutput', false);
+    imgs = arrayfun(@imread, fnames, 'UniformOutput', false);
 end
