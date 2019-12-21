@@ -5,32 +5,23 @@ addpath('../preprocess');
 addpath('../classify');
 
 mfs = membership_functions();
-coinstrs = {".05", ".1", ".2", ".5", "1", "2"};
+coinstrs = {"5c", "10c", "20c", "50c", "1eur", "2eur"};
 
-Is = imreads('../../img/Teams6-7/');
+Is = imreads('../../img/Measurements/');
 n = 1;
-n = length(Is)
+n = length(Is);
 for i = 1:n
     I = Is{i};
     %I = imread('../../img/Measurements/_DSC1774.JPG');
     I = imresize(I, 0.2);
-    w = size(I, 1);
-    h = size(I, 2);
 
+    [checkerboard_points, board_size] = detectCheckerboardPoints(I);
     k = scale_factor(checkerboard_points, board_size);
-
-    T = graythresh(I)*1.4;
-
     I_hsv = rgb2hsv(I);
     Iv = I_hsv(:, :, 3);
-    I_otsu = ~imbinarize(Iv, T);
 
-    [centers, radii, metric] = imfindcircles(I_otsu, [10 0.2*h],...
-                                             'ObjectPolarity', 'bright',...
-                                             'Method', 'TwoStage');
-    metric_threshold = 0.5;
-    centers = centers(metric > metric_threshold, :);
-    radii = radii(metric > metric_threshold, :);
+    Iv_covered = remove_checkerboard(Iv, checkerboard_points, board_size);
+    [centers, radii] = segment_coins(Iv, Iv_covered);
 
     nc = size(centers, 1);
     features = zeros(nc, 3);
@@ -46,13 +37,5 @@ for i = 1:n
 
     viscircles(centers, radii);
     fname = strcat('../../out/circles', int2str(i), '.png');
-    saveas(f, fname);
-
-    %figure; imshow(Iv);
-    %figure; imshow(I);
-    %figure; imshow(I_otsu);
-    %figure; imshow(imopen(imclose(I_otsu, ones(6)), ones(3)));
-    f = figure('visible', false); imshow(I_otsu)
-    fname = strcat('../../out/circles', int2str(i), 'th.png');
     saveas(f, fname);
 end
