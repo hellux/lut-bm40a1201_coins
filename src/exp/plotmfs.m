@@ -1,5 +1,3 @@
-%pkg load image;
-
 addpath('../io');
 addpath('../preprocess');
 addpath('../classify');
@@ -7,33 +5,39 @@ addpath('../classify');
 mfs = membership_functions();
 coinstrs = {"5c", "10c", "20c", "50c", "1eur", "2eur"};
 
-Is = imreads('../../img/Measurements/');
+Is = imreads('../../img/Measurements');
 n = 1;
 n = length(Is);
 for i = 1:n
     I = Is{i};
     %I = imread('../../img/Measurements/_DSC1774.JPG');
     I = imresize(I, 0.2);
-
     [checkerboard_points, board_size] = detectCheckerboardPoints(I);
     k = scale_factor(checkerboard_points, board_size);
-    I_hsv = rgb2hsv(I);
-    Iv = I_hsv(:, :, 3);
-
-    Iv_covered = remove_checkerboard(Iv, checkerboard_points, board_size);
-    [centers, radii] = segment_coins(Iv, Iv_covered);
+    I = calibrate_intensity(I, ...
+        {zeros(size(I))}, {ones(size(I))}, {zeros(size(I))}, ...
+        checkerboard_points, board_size);
+    [centers, radii] = segment_coins(I, checkerboard_points, board_size);
 
     nc = size(centers, 1);
     features = zeros(nc, 3);
     f = figure('visible', false); imshow(I)
+    coins_c = zeros(0, 2);
+    coins_r = zeros(0, 1);
     for j = 1:nc;
         c = centers(j, :);
         r = radii(j);
-        features(j, :) = extract_features(c, r, I_hsv, k);
+        features(j, :) = extract_features(c, r, I, k);
         coin = classify_coin(features(j, :), mfs);
-        text(c(1), c(2), strcat(int2str(j), ':', coinstrs{coin}));
+        if coin > 0
+            text(c(1), c(2), strcat(int2str(j), ':', coinstrs{coin}));
+            coins_c(j, :) = c;
+            coins_r(j) = r;
+        else
+            text(c(1), c(2), strcat(int2str(j)));
+        end
     end
-    viscircles(centers, radii);
+    viscircles(coins_c, coins_r);
     fname = strcat('../../out/circles', int2str(i), '.png');
     saveas(f, fname);
 
@@ -45,6 +49,7 @@ for i = 1:n
         for l = 1:feature_count
             x = ranges(l, 1):ranges(l, 2):ranges(l, 3);
             subplot(nc, 3, (j-1)*3+l);
+            axis([ranges(l, 1) ranges(l, 3) 0 1]);
             hold on;
             xline(features(j, l));
             hold on;

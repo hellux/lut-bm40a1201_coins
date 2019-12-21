@@ -20,6 +20,7 @@ img: imgs.zip
 	mkdir -p img
 	mv DIIP-images/* img
 	rmdir DIIP-images/
+	find img -type f -a ! -name '*.JPG' | xargs rm
 
 .tex.pdf:
 	${LATEXMK} $<

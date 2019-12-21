@@ -2,7 +2,8 @@
 % image I_hsv.
 % Image is scaled such that 1 pixel represents k mm.
 % return: row vector F containing values for features
-function F = extract_features(c, r, I_hsv, k)
+function F = extract_features(c, r, I, k)
+    I_hsv = rgb2hsv(I);
     h = size(I_hsv, 1);
     w = size(I_hsv, 2);
 
@@ -16,9 +17,9 @@ function F = extract_features(c, r, I_hsv, k)
             if d2 <= r^2
                 hues(end+1) = I_hsv(y, x, 1);
                 sats(end+1) = I_hsv(y, x, 2);
-                if d2 <= (0.75*r)^2
+                if d2 <= (0.70*r)^2
                     sats_inner(end+1) = I_hsv(y, x, 2);
-                else
+                else if d2 <= (0.90*r)^2
                     sats_outer(end+1) = I_hsv(y, x, 2);
                 end
             end
