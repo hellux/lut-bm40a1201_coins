@@ -3,5 +3,23 @@
 \begin{document}
 
 \section{Method}
+%Method Intro - Need - How it was done?  
+
+\subsection{Image Pre-Processing}
+The given initial set of images consists of varying number of coins against a checkerboard background. Often these images are bereft with noises due to cross-talk,pixel sensitivities and bias. Intensity calibration is useful technique that can be applied to these images to eliminate these errors: \\
+
+$R_{cal} =   \frac{R -  \overline{B}  -  \overline{D}}{\overline{F}}$
+
+The$R_{cal}$ is the resulting calibrated image.$R$ is the raw image whereas $overline{B}$ $overline{D}$ are the mean of all the provided and dark images.$\overline{F}$ is the sum of all the flat field images normalized to have a mean of 1. However, the presence of checkerboard adds some difficulty to the calibration specifically in those cases when the coins are covering the checkerboard area. To counteract the presence of the checkerboards on such coins we eliminated the checkerboard from the flat field image while calibrating the image.
+
+An additional calibration step is also needed to convert the measurements obtained by the camera to real world measurements. This is essential because it may be that not all the different types of coins will be present in all the images. Implying, using relative comparison between the largest and smallest coin in an image would not be an ideal scheme and lead to errors in this case. Hence we proceeded to derive the scaling factor for conversion from camera coordinates to real-world coordinates and hence obtain the diameters of the coins that are quite close in comparison to their real world counterparts. To achieve spatial calibration we make use of the checkerboard as its boxes are known to be of an already measured size. To account for errors in checkerboard points estimation by the in-built MATLAB function we take the mean of the normalized length along each of the inner edge of the board points divided by the number of detected squares along that edge.
+
+\subsection{Coin Segmentation}
+
+For segregating the coin from the background we adopt a similar approach of checkerboard removal as the checkerboard has significant effect on determining the threshold for binarizing the image. Later we use Otsu's method for thresholding the image and the obtained image is complemented before morphing the obtained approximate circles into near perfect circles for detection of circles accurately by the imfindcircles MATLAB function.
+
+\subsection{Fuzzy Inference based Coin Prediction}
+
+
 
 \end{document}
