@@ -5,7 +5,7 @@
 \section{Method}
 %Method Intro - Need - How it was done?
 
-\subsection{Image preprocessing}
+\subsection{Image Preprocessing}
 The given initial set of images consists of varying number of coins against a
 checkerboard background. Often these images are bereft with noises due to
 cross-talk,pixel sensitivities and bias. Intensity calibration is useful
@@ -48,9 +48,33 @@ with that threshold on the original image. The binary image is then opened and
 closed morphologically to remove spots within the coins. Finally, the circles
 of the coins are found using the imfindcircles MATLAB function. The function
 uses circular Hough transform with Atherton and Kerbyson's phase coding method
-to detect the circles.\cite{matlab-imfindcircles}
+to detect the circles \cite{matlab-imfindcircles}.
 
-\subsection{Feature extraction}
+\subsection{Feature Extraction}
+In total, three features are used to classify the different coins;
+\begin{itemize}
+    \item the diameter of the coin,
+    \item the average hue of the coin, weighted by the saturation, and
+    \item difference of the average saturation of the inner and outer part of
+        the coin.
+\end{itemize}
+The diameter is calculated by taking the number of pixels and scaling it
+according to the above mentioned geometric calibration in order to get a length
+in millimeters.
+
+The weigthed averaged $\mean{h}$ of the hue is calculated by taking the sum of
+all the hues multiplied by all the saturations, and dividing it by the total
+saturation as
+\begin{equation*}
+    \mean{h} = \frac{\sum_i^N h_i s_i}{\sum_i^N s_i},
+\end{equation*}
+where $h_i$, $s_i$ is the hue and saturation of the $i$:th pixel within the
+coin.
+
+The saturation difference is calculated by taking the average saturation of the
+inner pixels subtracted by the average saturation of the outer pixels. Pixels
+within 80\% of the radius are considered inner and the rest of the pixels
+within the coin are considered outer pixels.
 
 \subsection{Classification}
 
