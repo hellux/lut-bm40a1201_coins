@@ -4,6 +4,14 @@
 
 \section{Method}
 %Method Intro - Need - How it was done?
+Given a measurement image of a set of coins on a table with a checkerboard
+visible, as well as a set of bias, dark and flat field images, the program will
+determine the amount of coins for each currency that are visible in the
+measurement. The program first calibrates the intensity of the image using the
+bias, dark and flat field images as well as real-life scale using the
+checkerboard with a known width. The coins are then segmented from the images
+using a thresholded variant of the measurement. Features are then extracted for
+each coin and a classification is performed using the values of the features.
 
 \subsection{Image Preprocessing}
 The given initial set of images consists of varying number of coins against a
@@ -77,7 +85,18 @@ within 80\% of the radius are considered inner and the rest of the pixels
 within the coin are considered outer pixels.
 
 \subsection{Classification}
+The method used to classify the coins is inspired by fuzzy sets and fuzzy
+logics. Each currency of coin has three fuzzy sets with each a membership
+function, one for each feature. For example, the 5 cent coin should have a
+small diameter, reddish hue and very low saturation difference. The fuzzy set
+for each currency is the standard intersection (minimum) of its three fuzzy
+sets.
 
+The coin is then classified as the currency with the highest membership. If the
+coin doesn't have a membership above a certain threshold for any of the
+currencies, the object is not considered a coin.
 
+The fuzzy sets or membership functions are created and altered manually to fit
+the available currencies. The functions are either trapezoid or gaussian sets.
 
 \end{document}
