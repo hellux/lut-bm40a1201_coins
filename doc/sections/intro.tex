@@ -8,25 +8,24 @@ Image Analysis is the process of using various digital image processing methods
 to extract useful information from digital images. It is used for simple task
 such as finding shapes, detecting edges, noise removal as well as complex tasks
 such as the one presented in this report, counting of Euro coins from an image.
-These coins are commonly found in smaller denominations like 5,10,20 and 50
-cents, as well as in larger denominations like 1 and 2 Euros. These coins vary
-in both radii and their color(hue) which, are quite good properties for
-distinguishing between the various coins. This report makes use of these two
-properties of the coins for devising an image based classification system.
+These coins are found in smaller denominations like 5, 10, 20 and 50 cents, as
+well as in larger denominations like 1 and 2 Euros. These coins vary in both
+radii and their color (hue) which, are quite good properties for distinguishing
+between the various coins. This report makes use of these two properties of the
+coins for devising an image based classification system.
 
 For the classification task, we were provided with multiple images of coins
 placed randomly around a checkerboard. Along with these images we were provided
-with the corresponding dark,bias and flat-filed images. Additionally a few
-images were captured to evaluate the performance of the system under different
+with the corresponding dark, bias and flat field images. Additionally a few
+images were taken to evaluate the performance of the system under different
 conditions such as lighting, number of coins, zoom, focal length etc.
 
-The basic algorithm for the developed system involves:
+The basic algorithm for the developed system involves
 \begin{itemize}
-  \item Pre-process the image to achieve intensity as well as spatial
-      calibration.
-  \item Segmenting the coins.
-  \item Extracting the coin features and classifying them based on the fuzzy
-      inference system.
+  \item preprocessing the image to achieve intensity as well as spatial
+      calibration,
+  \item segmenting the coins and
+  \item extracting the coins' features and classifying each coin.
 \end{itemize}
 
 \end{document}
