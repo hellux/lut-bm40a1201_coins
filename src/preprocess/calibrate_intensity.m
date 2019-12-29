@@ -4,9 +4,10 @@ function calibrated = calibrate_intensity(measurement, darks, flats, biass, ...
     B_hsv = cellfun(@rgb2hsv, biass, 'UniformOutput', false);
     F_hsv = cellfun(@rgb2hsv, flats, 'UniformOutput', false);
     M_hsv = rgb2hsv(measurement);
-    D_V = cellfun(@(x) x(:, :, 3), darks, 'UniformOutput', false);
-    B_V = cellfun(@(x) x(:, :, 3), biass, 'UniformOutput', false);
-    F_V = cellfun(@(x) x(:, :, 3), flats, 'UniformOutput', false);
+
+    D_V = cellfun(@(x) x(:, :, 3), D_hsv, 'UniformOutput', false);
+    B_V = cellfun(@(x) x(:, :, 3), B_hsv, 'UniformOutput', false);
+    F_V = cellfun(@(x) x(:, :, 3), F_hsv, 'UniformOutput', false);
     M_V = M_hsv(:, :, 3);
 
     dm = mean(cat(3, D_V{:}), 3);
