@@ -1,13 +1,22 @@
-function coins = estim_coins(measurement, dark, flat, bias)
+function coins = estim_coins(meas, dark, flat, bias)
+    CALIBRATE_INTENSITY = 1;
     mfs = membership_functions();
-    I = imresize(measurement, 0.2);
 
-    [checkerboard_points, board_size] = detectCheckerboardPoints(I);
-    k = scale_factor(checkerboard_points, board_size);
-    I = calibrate_intensity(I, ...
-        {zeros(size(I))}, {ones(size(I))}, {zeros(size(I))}, ...
-        checkerboard_points, board_size);
+    meas = rescale(meas);
+    dark = cellfun(@rescale, dark, 'UniformOutput', false);
+    flat = cellfun(@rescale, flat, 'UniformOutput', false);
+    bias = cellfun(@rescale, bias, 'UniformOutput', false);
+
+    [checkerboard_points, board_size] = detectCheckerboardPoints(meas);
+    if CALIBRATE_INTENSITY
+        I = calibrate_intensity(meas, dark, flat, bias, ...
+            checkerboard_points, board_size);
+    else
+        I = meas;
+    end
+
     [centers, radii] = segment_coins(I, checkerboard_points, board_size);
+    k = scale_factor(checkerboard_points, board_size);
 
     coins = zeros(1, 6);
     n = size(centers, 1);
