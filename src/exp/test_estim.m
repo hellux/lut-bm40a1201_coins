@@ -3,9 +3,9 @@ addpath('../preprocess');
 addpath('../classify');
 addpath('..');
 
-bias = imreads('../../img/Bias/');
 dark = imreads('../../img/Dark/');
 flat = imreads('../../img/Flat/');
+bias = imreads('../../img/Bias/');
 [measurements, fnames] = imreads('../../img/Measurements/');
 
 truth = [1 1 1 1 1 1; ...
@@ -22,10 +22,14 @@ truth = [1 1 1 1 1 1; ...
          0 0 1 1 3 0];
 
 n = length(measurements);
+total_errors = 0;
 for i = 1:n
     I = measurements{i};
-    coins = estim_coins(I, bias, dark, flat);
+    coins = estim_coins(I, dark, flat, bias);
     disp(fnames{i});
     disp(coins);
-    disp(coins-truth(i, :));
+    err = coins-truth(i, :)
+    total_errors = total_errors + sum(abs(err));
 end
+
+disp(total_errors);
