@@ -4,9 +4,24 @@
 
 \section{Discussion}
 
-The developed methodology was first tested against a provided set of test images and later on an additional set of experimentally obtained images to evaluate the generalizing capability of the system. The system was not only able to detect the coins in the provided image with absolute accuracy but was also able to determine the denominations of the coins with a very good accuracy. 
+Our implementation of an image based coin estimation system is quite adept in
+determining various coin denominations accurately under ideal conditions.
+However, improper lighting conditions can sometimes lead to large scale
+misclassification as the coin's hue and size are not so well detected in those
+cases.
 
-For the experimentally derived images, a camera was mounted on a pedestal, set at a particular height above the checkerboard with the coins scattered randomly around the camera's field of view. Firstly a flat-field image was obtained from the set-up and later multiple images were captured with slightly varying camera parameters like zoom and illumination. Illumination was varied with the help of 2 additional light sources while varying the number and denominations of coins. The system was again accurate to a good level and the misclassification rate was about 1 coin/image. The error could be attributed to low illumination making it difficult to differentiate between the hue of the coins especially that of the 5 cents when compared to 10 cents and sometimes the coin shadows tend to increase the apparent coin area as compared to it's actual area and hence leading to misclassification in some instances. The fuzzy inference system helps to reduce if not eliminate such misclassifications and hence the implemented system is quite robust.
+The developed methodology was first tested against a provided set of test
+images and later on an additional set of experimentally obtained images to
+evaluate the generalizing capability of the system. The system was not only
+able to detect the coins in the provided image with absolute accuracy but was
+also able to determine the denominations of the coins with a very good
+accuracy.
 
+For the evaluation set, the system was again accurate to a decent level and the
+misclassification rate was about 1 coin/image. The error could be attributed to
+low illumination making it difficult to differentiate between the hue of the
+coins especially that of the 5 cents when compared to 10 cents and sometimes
+the coin shadows tend to increase the apparent coin area as compared to it's
+actual area and hence leading to misclassification in some instances.
 
 \end{document}

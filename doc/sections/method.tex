@@ -113,4 +113,21 @@ currencies, the object is not considered a coin.
 The fuzzy sets or membership functions are created and altered manually to fit
 the available currencies. The functions are either trapezoid or gaussian sets.
 
+\subsection{Additional images}
+For the experimentally derived images, a camera was mounted on a pedestal, set
+at a particular height above the checkerboard with the coins scattered randomly
+around the camera's field of view.
+
+Firstly a flat-field image was obtained from the set-up and later multiple
+images were captured with slightly varying camera parameters like zoom and
+illumination. Illumination was varied with the help of 2 additional light
+sources while varying the number and denominations of coins. These were used to
+train the classifier by hand along with the given test measurements.
+
+Another set of images were taken in order to evaluate the final implementation.
+These was then given labels that were compared against the classifications of
+the implementation. In order to get an unbiased evaluation, these images were
+not used at all during the training of the classifier, only for testing the
+final implementation.
+
 \end{document}
