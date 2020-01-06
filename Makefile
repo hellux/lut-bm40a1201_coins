@@ -7,7 +7,18 @@ AUX = .aux .log .toc .fls .fdb_latexmk .bbl .blg .out .lof .lot .bcf .run.xml
 LMKOPTS = -pdf -output-directory=${OBJDIR}
 LATEXMK = ${LMKVARS} latexmk ${LMKOPTS}
 
+STNUM = stnum
+
 report: doc/report.pdf
+
+zip: report
+	rm -rf ${OBJDIR}/${STNUM}
+	mkdir -p ${OBJDIR}/${STNUM}
+	cp -r src ${OBJDIR}/${STNUM}
+	peg-markdown readme.md | elinks -dump > ${OBJDIR}/${STNUM}/readme.txt
+	cp ${OBJDIR}/report.pdf ${OBJDIR}/${STNUM}
+	cd ${OBJDIR} && tar -cvzf ${STNUM}.tar.gz ${STNUM}
+
 
 img: imgs.zip
 	unzip -d imgtmp imgs.zip
