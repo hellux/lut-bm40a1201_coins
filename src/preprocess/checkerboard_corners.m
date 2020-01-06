@@ -1,3 +1,4 @@
+% Calculate the location of the the corners of a checkerboard.
 function [topleft, botleft, botright, topright] = ...
         checkerboard_corners(checkerboard_points, board_size);
     h = board_size(1)-2;

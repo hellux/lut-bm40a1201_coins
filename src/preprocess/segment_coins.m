@@ -1,3 +1,4 @@
+% Detect coins in a calibrated image.
 function [centers, radii] = segment_coins(I, checkerboard_points, board_size)
     I_hsv = rgb2hsv(I);
     Iv = I_hsv(:, :, 3);

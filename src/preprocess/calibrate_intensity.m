@@ -1,3 +1,4 @@
+% Calibrate the intensity of an image.
 function calibrated = calibrate_intensity(measurement, darks, flats, biass, ...
                                           checkerboard_points, board_size)
     D_hsv = cellfun(@rgb2hsv, darks, 'UniformOutput', false);

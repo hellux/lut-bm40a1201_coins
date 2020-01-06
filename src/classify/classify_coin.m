@@ -1,3 +1,5 @@
+% Classify a single coin given a vector of feature values for the coin and
+% membership functions for each possible currency.
 function [coin, membership] = classify_coin(features, mfs)
     coin_count = size(mfs, 1);
     feature_count = size(mfs, 2);

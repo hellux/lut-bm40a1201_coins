@@ -32,4 +32,5 @@ for i = 1:n
     total_errors = total_errors + sum(abs(err));
 end
 
+disp(sum(truth(:)));
 disp(total_errors);

@@ -1,3 +1,4 @@
+% Create the membership functions for each feature for each currency.
 function mfs = membership_functions()
     mfs = cell(4, 3);
     D = 1; H = 2; S = 3;

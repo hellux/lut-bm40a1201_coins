@@ -1,3 +1,4 @@
+% Cover the checkerboard in an image.
 function Iv_rm = remove_checkerboard(Iv, checkerboard_points, board_size)
     [topleft, botleft, botright, topright] = ...
         checkerboard_corners(checkerboard_points, board_size);

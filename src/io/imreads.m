@@ -1,3 +1,4 @@
+% Read all images in a directory to a cell array, without recursion.
 function [imgs, fnames] = imreads(dirpath)
     paths = dir(strcat(dirpath, '/*'));
 
