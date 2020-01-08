@@ -5,7 +5,7 @@ function mfs = membership_functions()
 
     nordig_gold_hue = @(x) trapmf(x, [0.06 0.07 0.12 0.13]);
     no_sat_diff = @(x) trapmf(x, [-0.15 -0.05 0.05 0.15]);
-    normal_diameter = @(mean) (@(x) gaussmf(x, [0.8 mean+0.5]));
+    normal_diameter = @(mean) (@(x) gaussmf(x, [1.8 mean+0.5]));
     
     % 5 cent coin
     mfs{1, D} = normal_diameter(21.25);
