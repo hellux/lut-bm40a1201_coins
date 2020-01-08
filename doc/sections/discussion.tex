@@ -6,9 +6,9 @@
 
 Our implementation of an image based coin estimation system is quite adept in
 determining various coin denominations accurately under ideal conditions.
-However, poor lighting conditions can sometimes lead to errors
-as the it has detrimental effect on the image segmentation especially in cases
-where the coin is placed completely on the checkerboard.
+However, special conditions can sometimes lead to errors as the it has
+detrimental effect on the image segmentation especially in cases where the coin
+is placed completely on the checkerboard.
 
 The developed methodology was first tested against a provided set of test
 images and later on an additional set of experimentally obtained images to
@@ -17,10 +17,15 @@ able to detect the coins in the provided image with absolute accuracy but was
 also able to determine the denominations of the coins with a very good
 accuracy.
 
-For the evaluation set, the system was again accurate to a very good level. The 
-error mostly arose due to low illumination compounded with 
-the fact that the coins were placed on the checkerboard completely
-making it even more difficult to segment the coins from the checkerboard background. 
- 
+For the evaluation set, the system was again accurate to a very good level. The
+error mostly arose due to low illumination compounded with the fact that the
+coins were placed on the checkerboard completely making it even more difficult
+to segment the coins from the checkerboard background.
+
+As can be seen by the results, the primary issue with the implementation lies
+in the segmentation. The correctly segmented coins was correctly classified in
+100\% of the cases. However, coins that lied on the checkerboard were never
+detected and one coin was incorrectly segmented which caused the total accuracy
+to go down.
 
 \end{document}
