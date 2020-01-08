@@ -24,7 +24,7 @@ numbers.
       1776 & 0  & 0   & 0   & 0   & 0   & 0 \\
       1777 & 0  & 0   & 0   & 0   & 0   & 0 \\
       1778 & 0  & 0   & 0   & 0   & 0   & 0 \\
-      1779 & 0  & 0   & -1  & 1   & 0   & 0 \\
+      1779 & 0  & 0   & -1  & 0   & 0   & 0 \\
       1780 & 0  & 0   & 0   & 0   & 0   & 0 \\
       1781 & 0  & 0   & 0   & 0   & 0   & 0 \\
       1782 & 0  & 0   & 0   & 0   & 0   & 0 \\
@@ -38,19 +38,25 @@ numbers.
     \centering
     \begin{tabular}{lrrrrrr}
       nr  & 5c & 10c & 20c & 50c & 1EUR & 2EUR \\\hline
-      1 & 0  & 0   & 1   & 0   & 0   & -1 \\
-      2 & 0  & -1  & 0   & 0   & 0   & -1 \\
-      3 & -1 & 1   & 0   & 0   & 0   & 0 \\
-      4 & 0  & 0   & 1   & -1  & 0   & 0 \\
+      1   & -3 & -1  & 0   & 0   & 0   & 0  \\
+      2   & -1 & -1  & 0   & 0   & 0   & 0  \\
+      3   & 1  & 0   & 0   & 0   & 0   & -1 \\
+      4   & 0  & 0   & 0   & 0   & 0   & 0  \\
     \end{tabular}
     \caption{All errors for each image of the evaluation set.}
     \label{tab:eval}
 \end{table}
 
 For the measurement set, there was one misclassified coin out of a total of 76
-coins in 12 images. The classifier mistook a 20c coin for a 50c coin. For the
-evaluation set, 4 coins were misclassified and 2 coins were undetected for a
-total of 29 coins in four images. The accuracy was thus roughly 99\% for the
-measurement set and 79\% for the evaluation set.
+coins in 12 images. The implementation did not detect a 20c coin on the
+checkerboard. For the evaluation set, 6 coins were undetected and 1 coin was
+misclassified for a total of 40 coins in four images.
+
+The accuracy was thus roughly 99\% for the measurement set and 82\% for the
+evaluation set. However, after inspection it turns out that all undetected
+coins were on the checkerboard and the detection ratio was therefore exactly
+the same as the ratio of coins laying outside the checkerboard. The one coin
+that was misclassified was a 2 Euro coin mistaken for a 10c coin because only
+the inner part was segmented.
 
 \end{document}
