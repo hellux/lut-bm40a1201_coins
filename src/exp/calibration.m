@@ -7,7 +7,7 @@ flat = imreads('../../img/Flat/');
 bias = imreads('../../img/Bias/');
 
 [checkerboard_points, board_size] = detectCheckerboardPoints(meas);
-cal = calibrate_intensity(meas, dark, flat, bias, ...
+cal = calibrate_intensity(meas, dark{1}, flat{1}, bias{1}, ...
       checkerboard_points, board_size);
 
 imwrite(meas, '../../out/meas.png');

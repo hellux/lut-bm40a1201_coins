@@ -6,18 +6,20 @@ mfs = membership_functions();
 coinstrs = {"5c", "10c", "20c", "50c", "1eur", "2eur"};
 
 flats = imreads('../../img/Flat/');
+%flats = imreads('../../img/Test/flat4/');
 flats = cellfun(@rescale, flats, 'UniformOutput', false);
-%Is = imreads('../../img/Measurements');
-n = 1;
-%n = length(Is);
+Is = imreads('../../img/Measurements/');
+%Is = imreads('../../img/Test/meas4/');
+%n = 1;
+n = length(Is);
 for i = 1:n
-    %I = Is{i};
-    I = imread('../../img/Measurements/_DSC1779.JPG');
+    I = Is{i};
+    %I = imread('../../img/Test/_DSC2032.JPG');
     I = rescale(I);
 
     [checkerboard_points, board_size] = detectCheckerboardPoints(flats{1});
     I = calibrate_intensity(I, ...
-        {zeros(size(I))}, flats, {zeros(size(I))}, ...
+        zeros(size(I)), flats{1}, zeros(size(I)), ...
         checkerboard_points, board_size);
     [centers, radii] = segment_coins(I, checkerboard_points, board_size);
     k = scale_factor(checkerboard_points, board_size);

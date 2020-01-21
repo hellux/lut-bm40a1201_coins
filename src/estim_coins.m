@@ -3,9 +3,9 @@ function coins = estim_coins(meas, dark, flat, bias)
     mfs = membership_functions();
 
     meas = rescale(meas);
-    dark = cellfun(@rescale, dark, 'UniformOutput', false);
-    flat = cellfun(@rescale, flat, 'UniformOutput', false);
-    bias = cellfun(@rescale, bias, 'UniformOutput', false);
+    dark = rescale(dark);
+    flat = rescale(flat);
+    bias = rescale(bias);
 
     [checkerboard_points, board_size] = detectCheckerboardPoints(meas);
     if CALIBRATE_INTENSITY

@@ -25,7 +25,7 @@ n = length(measurements);
 total_errors = 0;
 for i = 1:n
     I = measurements{i};
-    coins = estim_coins(I, dark, flat, bias);
+    coins = estim_coins(I, dark{1}, flat{1}, bias{1});
     disp(fnames{i});
     disp(coins);
     err = coins-truth(i, :)
